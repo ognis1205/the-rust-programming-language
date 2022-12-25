@@ -1,0 +1,1 @@
+/Users/shin/Documents/github/the-rust-programming-language/ch03/projects/functions/target/debug/functions: /Users/shin/Documents/github/the-rust-programming-language/ch03/projects/functions/src/main.rs
