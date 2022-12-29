@@ -12,6 +12,12 @@ fn main() {
 
     let x = 5;
     makes_copy(x);
+
+    let s1 = gives_ownership();
+    println!("s1 = {}", s1);
+
+    let s1 = takes_and_gives_back(s1);
+    println!("s1 = {}", s1);
 }
 
 fn takes_ownership(some_string: String) {
@@ -20,4 +26,14 @@ fn takes_ownership(some_string: String) {
 
 fn makes_copy(some_integer: i32) {
     println!("{}", some_integer);
+}
+
+fn gives_ownership() -> String {
+    let some_string = String::from("hello");
+    some_string
+}
+
+fn takes_and_gives_back(mut some_string: String) -> String {
+    some_string.push_str(" world!");
+    some_string
 }
