@@ -22,6 +22,13 @@ fn main() {
     let mut s1 = s1;
     s1.push_str(" world!");
     println!("s1 = {}", s1);
+
+    let l = calculate_length(&s1);
+    println!("s1 = {}, len = {}", s1, l);
+
+    let mut s = String::from("Hello");
+    change(&mut s);
+    println!("s = {}", s);
 }
 
 fn takes_ownership(some_string: String) {
@@ -40,4 +47,12 @@ fn gives_ownership() -> String {
 fn takes_and_gives_back(mut some_string: String) -> String {
     some_string.push_str(" world!");
     some_string
+}
+
+fn calculate_length(s: &String) -> usize {
+    s.len()
+}
+
+fn change(s: &mut String) {
+    s.push_str(", world");
 }
