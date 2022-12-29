@@ -18,6 +18,10 @@ fn main() {
 
     let s1 = takes_and_gives_back(s1);
     println!("s1 = {}", s1);
+
+    let mut s1 = s1;
+    s1.push_str(" world!");
+    println!("s1 = {}", s1);
 }
 
 fn takes_ownership(some_string: String) {
