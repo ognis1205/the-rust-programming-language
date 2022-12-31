@@ -11,6 +11,24 @@ fn main() {
 
     println!("The points are {:?}, {:?}", p1, p2);
     println!("The distance of pooints is {}", p1.distance(&p2));
+
+    let rect1 = Rectangle {
+        width: 30,
+        height: 50,
+    };
+    let rect2 = Rectangle {
+        width: 10,
+        height: 40,
+    };
+    let rect3 = Rectangle {
+        width: 60,
+        height: 45,
+    };
+    println!("The rectanle is {:?}", rect1);
+    println!("The rectanle is {:?}", rect2);
+    println!("The rectanle is {:?}", rect3);
+    println!("Can rect1 hold rect2? {}", rect1.can_hold(&rect2));
+    println!("Can rect1 hold rect3? {}", rect1.can_hold(&rect3));
 }
 
 #[derive(Debug)]
@@ -22,6 +40,10 @@ struct Rectangle {
 impl Rectangle {
     fn area(&self) -> u32 {
         self.width * self.height
+    }
+
+    fn can_hold(&self, other: &Rectangle) -> bool {
+        self.width >= other.width && self.height >= other.height
     }
 }
 
