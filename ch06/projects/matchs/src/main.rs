@@ -12,9 +12,15 @@ fn main() {
     println!("result: {:?} => {}", Coin::Dime, value_in_cents(Coin::Dime));
     println!(
         "result: {:?} => {}",
-        Coin::Quarter,
-        value_in_cents(Coin::Quarter)
+        Coin::Quarter(State::Alabama),
+        value_in_cents(Coin::Quarter(State::Alabama))
     );
+}
+
+#[derive(Debug)]
+enum State {
+    Alabama,
+    Alaska,
 }
 
 #[derive(Debug)]
@@ -22,7 +28,7 @@ enum Coin {
     Penny,
     Nickel,
     Dime,
-    Quarter,
+    Quarter(State),
 }
 
 fn value_in_cents(coin: Coin) -> u32 {
@@ -30,6 +36,9 @@ fn value_in_cents(coin: Coin) -> u32 {
         Coin::Penny => 1,
         Coin::Nickel => 5,
         Coin::Dime => 10,
-        Coin::Quarter => 25,
+        Coin::Quarter(state) => {
+            println!("state from: {:?}", state);
+            25
+        }
     }
 }
