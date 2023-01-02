@@ -15,6 +15,13 @@ fn main() {
         Coin::Quarter(State::Alabama),
         value_in_cents(Coin::Quarter(State::Alabama))
     );
+
+    let coin = Coin::Penny;
+    if let Coin::Quarter(state) = coin {
+        println!("State quarter from {:?}", state);
+    } else {
+        println!("coin is not quarter");
+    }
 }
 
 #[derive(Debug)]
