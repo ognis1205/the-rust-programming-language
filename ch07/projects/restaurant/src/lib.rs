@@ -19,6 +19,11 @@ pub fn eat_at_reataurant() {
     let mut meal = back_of_house::Breakfast::summer("Rye");
     meal.toast = String::from("Wheat");
     println!("I'd like {} toast please", meal.toast);
+
+    let order1 = back_of_house::Appetizer::Soup;
+    let order2 = back_of_house::Appetizer::Salad;
+    println!("The order 1 is {:?}", order1);
+    println!("The order 2 is {:?}", order2);
 }
 
 fn serve_order() {}
@@ -30,6 +35,12 @@ mod back_of_house {
     }
 
     fn cook_order() {}
+
+    #[derive(Debug)]
+    pub enum Appetizer {
+        Soup,
+        Salad,
+    }
 
     pub struct Breakfast {
         pub toast: String,
