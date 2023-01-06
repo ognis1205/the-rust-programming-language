@@ -9,12 +9,25 @@ fn main() {
         numbers.push(rng.gen_range(-100..101));
     }
     println!("numbers: {:?}", numbers);
+    println!("largest: {:?}", find2(&numbers));
+}
 
-    let mut largest = numbers[0];
-    for x in numbers {
-        if x > largest {
-            largest = x;
+fn find(xs: &[i64]) -> i64 {
+    let mut ret = xs[0];
+    for &x in xs.iter() {
+        if x > ret {
+            ret = x;
         }
     }
-    println!("largest: {:?}", largest);
+    ret
+}
+
+fn find2<T: PartialOrd + Copy>(xs: &[T]) -> T {
+    let mut ret = xs[0];
+    for &x in xs.iter() {
+        if x > ret {
+            ret = x;
+        }
+    }
+    ret
 }
