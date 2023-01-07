@@ -1,5 +1,17 @@
 use rand::Rng;
 
+#[derive(Debug)]
+struct Point<T> {
+    x: T,
+    y: T,
+}
+
+impl<T> Point<T> {
+    fn x(&self) -> &T {
+        &self.x
+    }
+}
+
 fn main() {
     let mut rng = rand::thread_rng();
     let mut numbers: Vec<i64> = Vec::new();
@@ -9,20 +21,18 @@ fn main() {
         numbers.push(rng.gen_range(-100..101));
     }
     println!("numbers: {:?}", numbers);
-    println!("largest: {:?}", find2(&numbers));
+    println!("largest: {:?}", find(&numbers));
+
+    let int_p = Point { x: 1, y: 2 };
+    let flo_p = Point { x: 1.0, y: 2.0 };
+    println!("integer: {:?}", int_p);
+    println!("float: {:?}", flo_p);
+
+    println!("integer x: {:?}", int_p.x());
+    println!("float x: {:?}", flo_p.x());
 }
 
-fn find(xs: &[i64]) -> i64 {
-    let mut ret = xs[0];
-    for &x in xs.iter() {
-        if x > ret {
-            ret = x;
-        }
-    }
-    ret
-}
-
-fn find2<T: PartialOrd + Copy>(xs: &[T]) -> T {
+fn find<T: PartialOrd + Copy>(xs: &[T]) -> T {
     let mut ret = xs[0];
     for &x in xs.iter() {
         if x > ret {
