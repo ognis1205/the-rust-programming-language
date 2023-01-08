@@ -24,6 +24,10 @@ impl Summary for NewsArticle {
     }
 }
 
+fn notify(item: &impl Summary) {
+    println!("{}", item.summarize());
+}
+
 impl Summary for Tweet {
     fn summarize(&self) -> String {
         format!("{}: {}", self.username, self.content)
@@ -45,6 +49,6 @@ fn main() {
     };
     println!("{:?}", article);
     println!("{:?}", tweet);
-    println!("article: {}", article.summarize());
-    println!("tweet: {}", tweet.summarize());
+    notify(&article);
+    notify(&tweet);
 }
