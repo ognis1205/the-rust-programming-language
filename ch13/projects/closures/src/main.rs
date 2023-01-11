@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+use std::hash::Hash;
 use std::thread;
 use std::time::Duration;
 
@@ -32,31 +34,33 @@ fn simulated_expensive_calculation(intensity: u32) -> u32 {
     intensity
 }
 
-struct Cacher<T>
+struct Cacher<T, U>
 where
-    T: Fn(u32) -> u32,
+    T: Fn(U) -> U,
+    U: Copy + Eq + Hash,
 {
     calculation: T,
-    value: Option<u32>,
+    values: HashMap<U, U>,
 }
 
-impl<T> Cacher<T>
+impl<T, U> Cacher<T, U>
 where
-    T: Fn(u32) -> u32,
+    T: Fn(U) -> U,
+    U: Copy + Eq + Hash,
 {
-    fn new(calculation: T) -> Cacher<T> {
+    fn new(calculation: T) -> Cacher<T, U> {
         Cacher {
             calculation,
-            value: None,
+            values: HashMap::new(),
         }
     }
 
-    fn value(&mut self, arg: u32) -> u32 {
-        match self.value {
-            Some(v) => v,
+    fn value(&mut self, arg: U) -> U {
+        match self.values.get(&arg) {
+            Some(v) => *v,
             None => {
                 let v = (self.calculation)(arg);
-                self.value = Some(v);
+                self.values.insert(arg, v);
                 v
             }
         }
