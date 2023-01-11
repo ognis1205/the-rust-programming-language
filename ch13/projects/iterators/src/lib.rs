@@ -1,7 +1,3 @@
-fn main() {
-    println!("Hello, world!");
-}
-
 #[derive(PartialEq, Debug)]
 struct Shoe {
     size: u32,
