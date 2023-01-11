@@ -13,17 +13,18 @@ fn generate_workout(intensity: u32, random_nunber: u32) {
     let mut result = Cacher::new(|num| {
         println!("calculating slowly...");
         thread::sleep(Duration::from_secs(2));
-        num
+        num * 2
     });
 
     if intensity < 25 {
         println!("tofay, do {} pushups!", result.value(intensity));
+        println!("tofay, do {} pushups agian!", result.value(intensity + 1));
         println!("next, do {} situps!", result.value(intensity));
     } else {
         if random_nunber == 3 {
             println!("take a break today! remember to stay hydrated!");
         } else {
-            println!("today, run for {} minuites!", result.value(intensity));
+            println!("today, run for {} minuites!", result.value(intensity + 1));
         }
     }
 }
