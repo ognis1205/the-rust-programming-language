@@ -13,6 +13,13 @@ fn main() {
     let y = MyBox::new(x);
     println!("y = {:?}", y);
     println!("y = {:?}", *y);
+
+    let m = MyBox::new(String::from("Rust"));
+    hello(&m);
+}
+
+fn hello(name: &str) {
+    println!("Hello, {}!", name);
 }
 
 #[derive(Debug)]
