@@ -1,3 +1,4 @@
+#[derive(Debug)]
 pub struct AveragedCollection {
     list: Vec<i32>,
     average: f64,
@@ -32,9 +33,20 @@ impl AveragedCollection {
 
 #[cfg(test)]
 mod tests {
+    use super::*;
+
     #[test]
     fn it_works() {
-        let result = 2 + 2;
-        assert_eq!(result, 4);
+        let values = vec![1, 2, 3, 4];
+        let mut collection = AveragedCollection {
+            list: vec![],
+            average: 0.0,
+        };
+        for value in values {
+            collection.add(value);
+        }
+        println!("{:?}", collection);
+        collection.remove();
+        println!("{:?}", collection);
     }
 }
