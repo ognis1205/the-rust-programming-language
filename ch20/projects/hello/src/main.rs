@@ -1,4 +1,6 @@
+use std::io::prelude::*;
 use std::net::TcpListener;
+use std::net::TcpStream;
 use std::process;
 
 fn main() {
@@ -18,6 +20,15 @@ fn main() {
                 process::exit(1);
             }
         };
-        println!("connection established");
+        handle_connection(stream);
     }
+}
+
+fn handle_connection(mut stream: TcpStream) {
+    let mut buffer = [0; 1024];
+    if let Err(err) = stream.read(&mut buffer) {
+        eprintln!("error occured: {}", err);
+        process::exit(1);
+    }
+    println!("request: {}", String::from_utf8_lossy(&buffer[..]));
 }
