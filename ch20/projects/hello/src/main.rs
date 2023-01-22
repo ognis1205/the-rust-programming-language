@@ -30,5 +30,14 @@ fn handle_connection(mut stream: TcpStream) {
         eprintln!("error occured: {}", err);
         process::exit(1);
     }
-    println!("request: {}", String::from_utf8_lossy(&buffer[..]));
+
+    let response = "HTTP/1.1 200 OK\r\n\r\n";
+    if let Err(err) = stream.write(response.as_bytes()) {
+        eprintln!("error occured: {}", err);
+        process::exit(1);
+    }
+    if let Err(err) = stream.flush() {
+        eprintln!("error occured: {}", err);
+        process::exit(1);
+    }
 }
