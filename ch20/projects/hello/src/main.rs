@@ -26,17 +26,12 @@ fn main() {
 
 fn handle_connection(mut stream: TcpStream) {
     let mut buffer = [0; 1024];
-    if let Err(err) = stream.read(&mut buffer) {
-        eprintln!("error occured: {}", err);
-        process::exit(1);
-    }
-
     let response = "HTTP/1.1 200 OK\r\n\r\n";
-    if let Err(err) = stream.write(response.as_bytes()) {
-        eprintln!("error occured: {}", err);
-        process::exit(1);
-    }
-    if let Err(err) = stream.flush() {
+    if let Err(err) = stream
+        .read(&mut buffer)
+        .and_then(|_| stream.write(response.as_bytes()))
+        .and_then(|_| stream.flush())
+    {
         eprintln!("error occured: {}", err);
         process::exit(1);
     }
