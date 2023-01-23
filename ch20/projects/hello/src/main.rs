@@ -1,3 +1,4 @@
+use std::fs::File;
 use std::io::prelude::*;
 use std::net::TcpListener;
 use std::net::TcpStream;
@@ -26,7 +27,22 @@ fn main() {
 
 fn handle_connection(mut stream: TcpStream) {
     let mut buffer = [0; 1024];
-    let response = "HTTP/1.1 200 OK\r\n\r\n";
+    let mut contents = String::new();
+
+    let mut file = match File::open("hello.html") {
+        Ok(file) => file,
+        Err(err) => {
+            eprintln!("error occured: {}", err);
+            process::exit(1);
+        }
+    };
+
+    if let Err(err) = file.read_to_string(&mut contents) {
+        eprintln!("error occured: {}", err);
+        process::exit(1);
+    }
+    let response = format!("HTTP/1.1 200 OK\r\n\r\n{}", contents);
+
     if let Err(err) = stream
         .read(&mut buffer)
         .and_then(|_| stream.write(response.as_bytes()))
