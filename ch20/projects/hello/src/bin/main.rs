@@ -6,7 +6,13 @@ use std::net::TcpStream;
 use std::process;
 
 fn main() {
-    let pool = ThreadPool::new(4);
+    let pool = match ThreadPool::new(4) {
+        Ok(pool) => pool,
+        Err(err) => {
+            eprintln!("error occured: {}", err);
+            process::exit(1);
+        }
+    };
 
     let listener = match TcpListener::bind("127.0.0.1:7878") {
         Ok(listener) => listener,
