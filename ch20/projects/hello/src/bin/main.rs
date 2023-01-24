@@ -1,3 +1,4 @@
+use hello::ThreadPool;
 use std::fs::File;
 use std::io::prelude::*;
 use std::net::TcpListener;
@@ -5,6 +6,8 @@ use std::net::TcpStream;
 use std::process;
 
 fn main() {
+    let pool = ThreadPool::new(4);
+
     let listener = match TcpListener::bind("127.0.0.1:7878") {
         Ok(listener) => listener,
         Err(err) => {
@@ -21,7 +24,10 @@ fn main() {
                 process::exit(1);
             }
         };
-        handle_connection(stream);
+
+        pool.execute(|| {
+            handle_connection(stream);
+        });
     }
 }
 
